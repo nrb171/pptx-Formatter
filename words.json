@@ -1,0 +1,142 @@
+{
+    "words": [
+        {
+            "words": [
+                "example"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_size": 18,
+                "font_bold": true,
+                "font_italic": false,
+                "font_color": [
+                    255,
+                    0,
+                    0
+                ]
+            }
+        },
+        {
+            "words": [
+                "functions",
+                "function",
+                "arrays",
+                "array",
+                "strings",
+                "string",
+                "integers",
+                "integer",
+                "floats",
+                "float",
+                "doubles",
+                "double",
+                "booleans",
+                "boolean",
+                "bools",
+                "bool",
+                "objects",
+                "object",
+                "classes",
+                "class",
+                "characters",
+                "character",
+                "chars",
+                "char",
+                "bytes",
+                "byte",
+                "bits",
+                "bit"
+            ],
+            "format": {
+                "font_name": "Courier",
+                "font_color": [
+                    255,
+                    47,
+                    146
+                ]
+            }
+        },
+        {
+            "words": [
+                "while",
+                "for",
+                "if",
+                "else",
+                "elseif",
+                "end",
+                "switch",
+                "case",
+                "return",
+                "break",
+                "continue",
+                "try",
+                "catch",
+                "clear all",
+                "clear",
+                "clc",
+                "close all",
+                "close",
+                "hold on",
+                "hold off"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_color": [
+                    47,
+                    85,
+                    151
+                ]
+            }
+        },
+        {
+            "words": [
+                "true",
+                "false",
+                "null",
+                "nil"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_color": [
+                    4,
+                    50,
+                    255
+                ]
+            }
+        },
+        {
+            "words": [
+                "expressions",
+                "expression",
+                "statements",
+                "statement"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_color": [
+                    0,
+                    176,
+                    80
+                ]
+            }
+        },
+        {
+            "words": [
+                "variables",
+                "variable",
+                "constants",
+                "constant",
+                "arguments",
+                "argument"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_color": [
+                    0,
+                    176,
+                    240
+                ]
+            }
+        }
+    ]
+}
