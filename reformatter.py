@@ -1,17 +1,33 @@
+# %% IMPORT THE NECESSARY MODULES ***********************************************
 from pptx.oxml.xmlchemy import OxmlElement
 import json
 from pptx import Presentation
 from pptx.util import Pt
 from pptx.dml.color import RGBColor
+import os
+import argparse
+import re
 
-fileToFormat = "/Users/nrb171/Library/CloudStorage/OneDrive-ThePennsylvaniaStateUniversity/PSU/Instructing/SP24 - METEO273/lectures/SP24/02 startProgramming.pptx"
+# %% DEFINE THE FOLDER TO FORMAT USING COMMAND LINE ARGUMENTS *******************
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '-d', '--directory', default='./', help='Directory to format')
+parser.add_argument(
+    '-f', '--file', default='./', help='File to format')
+args = parser.parse_args()
+folderToFormat = args.directory
+fileToFormat = args.file
+
+# %% FORMATTING FUNCTION ********************************************************
 
 
 def apply_format(run, format_spec):
     try:
         run.font.name = format_spec['font_name']
-
-        # run.font.size = run.font.size
+        # NOTE: This code has the capability to change size, bold, and italic
+        # but it is not currently used. Uncomment the lines below to use it.
+        # You will also neeed to update the keys in the words.json file.
+        run.font.size = run.font.size
         # run.font.bold = format_spec['font_bold']
         # run.font.italic = format_spec['font_italic']
 
@@ -26,15 +42,15 @@ def format_run(paragraph, word, format_spec):
     for run in paragraph.runs:
         split_text = run.text.split(word)
 
+        # Check if the word is part of another word
         try:
-            if split_text[0][-1] == ' ' or split_text[1][0] == ' ':
-                partOfWord = False
-            else:
-                partOfWord = True
+            partOfWord = re.findall(r'\b' + word + r'\b', run.text.lower())
+            partOfWord = False if partOfWord else True
+
         except:
             partOfWord = False
 
-        if word in run.text and partOfWord == False:
+        if word in run.text.lower() and partOfWord == False:
 
             # Iterate through each part in split_text
             for i, part in enumerate(split_text):
@@ -84,28 +100,38 @@ def _copy_run_formatting(new_run, original_run):
         return new_run
 
 
-# Load the presentation and formatting rules
-
-
-# Iterate through each slide and textbox
-# Iterate through each slide and textbox
+# %% MAIN PROGRAM ***************************************************************
 with open('words.json', 'r') as file:
     formatting_rules = json.load(file)
 
-pptx = Presentation(fileToFormat)
+if not os.path.exists(folderToFormat):
+    print('Folder does not exist')
+    exit()
 
-for slide in pptx.slides:
-    for shape in slide.shapes:
-        if shape.has_text_frame:
-            for paragraph in shape.text_frame.paragraphs:
-                for rule in formatting_rules['words']:
-                    # Iterate over each word in the "words" list
-                    for word in rule['words']:
-                        if word in paragraph.text.lower():
+# file parsing logic
+if folderToFormat == './' and fileToFormat != './':
+    files = [os.path.basename(fileToFormat)]
+    folderToFormat = os.path.dirname(fileToFormat)
+elif folderToFormat != './' and fileToFormat == './':
+    files = os.listdir(folderToFormat)
+    files = [f for f in files if f.endswith('.pptx')]
+elif folderToFormat == './' and fileToFormat == './':
+    files = os.listdir(folderToFormat)
+    files = [f for f in files if f.endswith('.pptx')]
 
-                            paragraph = format_run(
-                                paragraph, word, rule['format'])
-                            print(paragraph.text)
 
-        # Save the formatted presentation
-pptx.save(fileToFormat.replace('.pptx', '_formatted.pptx'))
+for fileToFormat in files:
+    pptx = Presentation(folderToFormat+'/'+fileToFormat)
+    for slide in pptx.slides:
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                for paragraph in shape.text_frame.paragraphs:
+                    for rule in formatting_rules['words']:
+                        # Iterate over each word in the "words" list
+                        for word in rule['words']:
+                            if word in paragraph.text.lower():
+                                paragraph = format_run(
+                                    paragraph, word, rule['format'])
+
+    # Save the formatted presentation
+    pptx.save(folderToFormat+'/'+fileToFormat.replace('.pptx', '.pptx'))

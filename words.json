@@ -2,22 +2,6 @@
     "words": [
         {
             "words": [
-                "example"
-            ],
-            "format": {
-                "font_name": "Menlo",
-                "font_size": 18,
-                "font_bold": true,
-                "font_italic": false,
-                "font_color": [
-                    255,
-                    0,
-                    0
-                ]
-            }
-        },
-        {
-            "words": [
                 "functions",
                 "function",
                 "arrays",
@@ -135,6 +119,23 @@
                     0,
                     176,
                     240
+                ]
+            }
+        },
+        {
+            "words": [
+                "workspace",
+                "command window",
+                "editor",
+                "path",
+                "documentation"
+            ],
+            "format": {
+                "font_name": "Menlo",
+                "font_color": [
+                    255,
+                    0,
+                    255
                 ]
             }
         }
